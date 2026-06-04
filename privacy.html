@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy - Hearth Cmd</title>
+  <link rel="icon" type="image/svg+xml" href="hearthcmd.svg">
+  <link rel="apple-touch-icon" href="hearthcmd-180.png">
+  <link rel="stylesheet" href="style.css">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-5W4B1J7E1F"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-5W4B1J7E1F');
+  </script>
+</head>
+<body>
+  <nav>
+    <div class="container">
+      <a href="/" class="brand">
+        <img src="hearthcmd.svg" alt="Hearth Cmd logo">
+        Hearth Cmd
+      </a>
+      <div class="nav-links">
+        <a href="/">Home</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="legal">
+    <div class="container">
+      <h1>Privacy Policy</h1>
+      <p class="last-updated">Last updated: June 4, 2026</p>
+
+      <p>Hearth Cmd ("we", "our", "the Service") is operated by David Farrell. This policy describes what data we collect, how we use it, and your rights regarding that data.</p>
+
+      <h2>1. Data We Collect</h2>
+      <p>Hearth Cmd collects the data necessary to authenticate you, route permission requests to your device, and let you organize AI agents across hosts:</p>
+      <ul>
+        <li><strong>Email address:</strong> You sign in by entering your email address; we send a 6-digit one-time passcode (OTP) to that address. Your verified email is stored on the server and used to identify you across devices, to deliver invitations to organizations you've been added to, and to contact you about your account. If an organization admin invites someone, the invitee's email address is stored on the server until the invite is accepted, revoked, or expires.</li>
+        <li><strong>Account identifiers:</strong> When you first verify your email, the server creates a user record with a randomly generated UUID. Additional UUIDs identify the organizations you belong to, the AI agents and hosts you create, and the devices you sign in from. These identifiers are not linked to your Apple ID.</li>
+        <li><strong>Display name (optional):</strong> If you set a name on your user profile, it is stored on the server so other members of your organizations can see who they are collaborating with.</li>
+        <li><strong>Device identifier &amp; secret:</strong> A randomly generated UUID and cryptographic secret are created on your device on first sign-in and stored in your iCloud Keychain. They authenticate the app to our relay server. The secret is stored hashed on the server.</li>
+        <li><strong>Push notification token:</strong> A token issued by Apple Push Notification service (APNs), used solely to deliver push notifications when the app is not in the foreground. The token is device-specific and does not identify you personally.</li>
+        <li><strong>Organization, host, and agent metadata:</strong> When you create an organization, a host registration, an AI agent, a job description, or a working directory, the labels and configuration you provide are stored on the server. This includes:
+          <ul>
+            <li>Organization names you choose (e.g. "Smith Household").</li>
+            <li>Hostnames of the machines where the daemon runs.</li>
+            <li>Filesystem paths you designate as agent working directories (e.g. <code>/Users/alice/projects/website</code>).</li>
+            <li>Display names you give to AI agents (e.g. "Alice's Gardener") and to your devices (e.g. "Alice's iPhone").</li>
+            <li>The job-description text you write to direct an agent — title, mandate, and required skills — which is free-form Markdown that you author.</li>
+            <li>The list of AI brain models, harnesses (Claude Code, Codex, etc.), and skills configured for each agent.</li>
+          </ul>
+        </li>
+        <li><strong>Permission request data:</strong> When an AI agent attempts a tool call (a shell command, file read or write, network request, etc.) the request content — tool name, tool input (which may include commands and file paths), and contextual metadata — is relayed through our server to your device. Your decision (Allow / Deny / Always Allow) and the timestamp are logged on the server for operational, audit, and dispute-resolution purposes.</li>
+        <li><strong>Auto-approve rules:</strong> If you choose "Always Allow" for a request, a pattern-based rule (e.g. <code>Bash(git *)</code>) is stored on the server, scoped to the position of the agent it was created for. You can view and delete these rules at any time in the app.</li>
+        <li><strong>Subscription data:</strong> If you purchase a Hearth Cmd Pro subscription, the App Store transaction identifier, product identifier, environment (sandbox or production), purchase and expiration timestamps, and the signed transaction (a JWS issued by Apple) are stored on the server to verify and maintain your Pro entitlement. We do not receive your payment information from Apple.</li>
+        <li><strong>Activity stream data:</strong> While an agent session is open, the agent's transcript entries (tool calls, text responses, user messages) stream through our server to your device in real time. This data is relayed in memory only &mdash; it is never written to disk, logged, or stored on our servers. Only the permission-request metadata described above is persisted.</li>
+        <li><strong>OTP request IP address:</strong> When you request a one-time passcode, the originating IP address is recorded on the server for abuse rate-limiting on that endpoint. It is not used for tracking, profiling, or analytics.</li>
+        <li><strong>Google OAuth credentials (optional):</strong> If you connect a Google account to use the Google Calendar, Google Drive, or Google People plugins, we store an OAuth refresh token on the server, encrypted at rest using a key pinned to your host machine (X25519 + ChaCha20-Poly1305). Only the daemon running on your host can decrypt this token. A short-lived access token is derived from the refresh token on demand and used solely for the API call the agent is attempting; the access token is never stored. We also store the Google account email address associated with the connection as a human-readable label so you can identify which account is connected.</li>
+      </ul>
+
+      <h2>2. Data We Do Not Collect</h2>
+      <ul>
+        <li>We do not collect your Apple ID or Apple-supplied advertising identifier (IDFA).</li>
+        <li>We do not collect analytics, usage metrics, or product-interaction telemetry beyond what is described above.</li>
+        <li>We do not use cookies or third-party tracking on the app or the marketing site (the site's only third-party script is Google Analytics for aggregate site-traffic stats; the app does not load it).</li>
+        <li>We do not access your source code, files, or any data on your computer beyond what is included in a permission request that the agent itself sends to the server.</li>
+        <li>Activity-stream transcripts are not retained on our servers.</li>
+        <li>We do not use Google user data — including Calendar events, Drive file content, or Contacts — to train machine learning models, serve advertising, or for any purpose other than completing the specific action the agent requested on your behalf.</li>
+        <li>Google user data accessed through the Calendar, Drive, or People APIs is passed directly to the agent running on your own machine. It is not stored on our servers beyond the duration of the individual API call.</li>
+      </ul>
+
+      <h2>3. How We Use Your Data</h2>
+      <p>All data collected is used exclusively to provide the core functionality of the Service:</p>
+      <ul>
+        <li>Authenticating you via email OTP and maintaining your sign-in across devices.</li>
+        <li>Routing permission requests from your AI agents to your devices and other members of your organization.</li>
+        <li>Sending push notifications to wake the app when a request arrives or when an agent needs your input.</li>
+        <li>Evaluating auto-approve rules to handle matching requests without prompting you.</li>
+        <li>Delivering and tracking organization invitations.</li>
+        <li>Verifying and maintaining your Hearth Cmd Pro subscription.</li>
+        <li>Performing Google Calendar, Drive, or People API calls on behalf of your agents, using only the access you explicitly granted via the OAuth consent screen.</li>
+      </ul>
+      <p>We do not sell, share, or transfer your data to any third party, except (a) Apple Push Notification service for the sole purpose of delivering notifications, (b) Apple's StoreKit servers for verifying subscription transactions, (c) the email service used to send OTPs and invitations, and (d) Google's APIs when completing an action your agent requested using a Google integration you connected.</p>
+      <p>Our use of Google API Services and any data received through those services adheres to the <a href="https://developers.google.com/terms/api-services-user-data-policy" target="_blank" rel="noopener">Google API Services User Data Policy</a>, including the Limited Use requirements.</p>
+
+      <h2>4. Data Storage and Security</h2>
+      <ul>
+        <li>Your device identifier and secret are stored in your iCloud Keychain, which is end-to-end encrypted by Apple.</li>
+        <li>The relay server stores your account record, organization data, agent and host metadata, hashed device secrets, push tokens, auto-approve rules, and subscription state in a database hosted on infrastructure we control.</li>
+        <li>One-time passcodes are stored hashed (SHA-256), not in plain text, and expire after a short window.</li>
+        <li>All communication between the app and the server uses TLS encryption (HTTPS/WSS).</li>
+        <li>Permission request metadata (tool name, tool input, decision, and timestamps) is logged for operational, audit, and dispute-resolution purposes. Active log files are rotated automatically; older logs may be moved to cold storage and retained indefinitely.</li>
+        <li>Google OAuth refresh tokens are encrypted at rest using X25519 key agreement and ChaCha20-Poly1305 authenticated encryption, keyed to your host machine's public key. The plaintext token is never stored on disk on our servers and can only be decrypted by the daemon running on your host.</li>
+      </ul>
+
+      <h2>5. Data Retention</h2>
+      <p>Account records, organization and agent metadata, auto-approve rules, and subscription records are retained for as long as you use the Service. Permission-request logs may be archived to cold storage and retained indefinitely for audit and compliance purposes. To delete your account and associated data, contact us at <a href="mailto:support@hearthcmd.com">support@hearthcmd.com</a>; we will remove your user record, organization memberships, device registrations, and auto-approve rules. Permission-request log entries may be retained in audit archives in pseudonymous form (referenced by UUID).</p>
+
+      <h2>6. Children's Privacy</h2>
+      <p>Hearth Cmd is not directed at children under 13 and we do not knowingly collect data from children.</p>
+
+      <h2>7. Changes to This Policy</h2>
+      <p>We may update this policy from time to time. Changes will be posted on this page with an updated "Last updated" date. Continued use of the Service after changes constitutes acceptance of the revised policy.</p>
+
+      <h2>8. Contact</h2>
+      <p>If you have questions about this privacy policy or your data, contact us at <a href="mailto:support@hearthcmd.com">support@hearthcmd.com</a>.</p>
+
+      <h2>9. Google API Services</h2>
+      <p>Hearth Cmd offers optional integrations with Google Calendar, Google Drive, and Google People via OAuth 2.0. This section describes how data from those services is handled.</p>
+
+      <h3>What we access</h3>
+      <ul>
+        <li><strong>Google Calendar</strong> (<code>calendar.events</code> scope): Calendar events in the calendars you have access to, including event titles, times, attendees, descriptions, and locations.</li>
+        <li><strong>Google Drive</strong> (<code>drive.file</code> scope): Files created by Hearth Cmd or explicitly opened through Hearth Cmd, including file names, metadata, and content.</li>
+        <li><strong>Google People</strong> (<code>contacts.readonly</code> scope): Contact names, email addresses, phone numbers, job titles, and departments from your Google Contacts or Workspace directory.</li>
+      </ul>
+
+      <h3>How we use it</h3>
+      <p>Google user data is accessed solely to complete the specific action your AI agent is attempting — for example, reading your calendar to check availability before scheduling a meeting, or looking up a contact's email address. Each action is either approved by you in real time or governed by an explicit auto-approve rule you created. Data accessed through Google APIs is passed to the agent running on your own machine and is not stored, logged, or retained on our servers beyond the duration of the individual API call.</p>
+
+      <h3>What we do not do with Google user data</h3>
+      <ul>
+        <li>We do not store Google Calendar, Drive, or People data on our servers.</li>
+        <li>We do not use Google user data to train or improve machine learning models.</li>
+        <li>We do not use Google user data for advertising or transfer it to advertising networks.</li>
+        <li>We do not share Google user data with third parties except as necessary to complete the action the agent requested (i.e., the Google API call itself).</li>
+        <li>We do not use Google user data for any purpose other than providing the in-app feature the user requested.</li>
+      </ul>
+
+      <h3>OAuth tokens</h3>
+      <p>When you connect a Google account, an OAuth refresh token is stored on our server encrypted to your host machine's public key (X25519 + ChaCha20-Poly1305). Only the daemon running on your host can decrypt it. Short-lived access tokens are derived on demand and used only for the API call in progress. You can disconnect a Google integration at any time from the app; doing so revokes the stored token.</p>
+
+      <p>Our use of Google API Services adheres to the <a href="https://developers.google.com/terms/api-services-user-data-policy" target="_blank" rel="noopener">Google API Services User Data Policy</a>, including the Limited Use requirements.</p>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <div class="footer-links">
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Service</a>
+        <a href="support.html">Support</a>
+        <a href="mailto:support@hearthcmd.com">Contact</a>
+      </div>
+      <p class="copyright">&copy; 2025-2026 David Farrell. All rights reserved.</p>
+    </div>
+  </footer>
+</body>
+</html>

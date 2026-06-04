@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Support - Hearth Cmd</title>
+  <meta name="description" content="Troubleshooting and support for Hearth Cmd.">
+  <link rel="icon" type="image/svg+xml" href="hearthcmd.svg">
+  <link rel="apple-touch-icon" href="hearthcmd-180.png">
+  <link rel="stylesheet" href="style.css">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-5W4B1J7E1F"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-5W4B1J7E1F');
+  </script>
+</head>
+<body>
+  <nav>
+    <div class="container">
+      <a href="/" class="brand">
+        <img src="hearthcmd.svg" alt="Hearth Cmd logo">
+        Hearth Cmd
+      </a>
+      <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="guide.html">Setup Guide</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="docs">
+    <div class="container">
+      <h1>Support</h1>
+
+      <p>For installation, login, and how-to walkthroughs, see the <a href="guide.html">setup guide</a>. This page is for troubleshooting and getting in touch when something isn't working.</p>
+
+      <h2 id="troubleshooting">Troubleshooting</h2>
+
+      <h3>Host not appearing in the app</h3>
+      <ul>
+        <li>Make sure the daemon is running: <code>hearth status</code>.</li>
+        <li>Confirm you're signed in to the same account on the CLI and the app &mdash; <code>hearth login</code> emails an OTP to the address you specify, and the app's email must match.</li>
+        <li>Check the <strong>About</strong> tab in the app &mdash; status should show "Connected" with a green dot.</li>
+      </ul>
+
+      <h3>Agent won't spawn from the app</h3>
+      <ul>
+        <li>Confirm <code>hearth status</code> shows the daemon as running on the target host.</li>
+        <li>Make sure the working directory exists on that host and is readable.</li>
+        <li>Make sure the agent binary you picked (e.g. <code>claude</code>) is installed and on the daemon's <code>PATH</code>.</li>
+        <li>Check the daemon log for errors. Path is shown by <code>hearth status</code>.</li>
+      </ul>
+
+      <h3>Talk to Your Agent not working</h3>
+      <ul>
+        <li>Talk to Your Agent requires a Hearth Cmd Pro subscription.</li>
+        <li>The agent must have been spawned via the app (or via the daemon on this host).</li>
+        <li>Check that the Activity tab shows an input bar at the bottom when viewing the session.</li>
+      </ul>
+
+      <h3>Not receiving push notifications</h3>
+      <ul>
+        <li>Check that notifications are enabled: <strong>Settings &rarr; Hearth Cmd &rarr; Notifications</strong>.</li>
+        <li>If using a Focus mode, make sure Hearth Cmd is in the allowed apps list or Time Sensitive notifications are enabled.</li>
+        <li>Push notifications are sent when the app is backgrounded. If the app is in the foreground, requests arrive directly via WebSocket.</li>
+      </ul>
+
+      <h3>Requests timing out</h3>
+      <ul>
+        <li>The default timeout is 590 seconds.</li>
+        <li>If the app is not connected and push notifications fail, the request will time out and be denied.</li>
+      </ul>
+
+      <h2>Contact</h2>
+      <p>For bug reports, feature requests, or any questions, email <a href="mailto:support@hearthcmd.com">support@hearthcmd.com</a>.</p>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <div class="footer-links">
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Service</a>
+        <a href="support.html">Support</a>
+        <a href="mailto:support@hearthcmd.com">Contact</a>
+      </div>
+      <p class="copyright">&copy; 2025-2026 David Farrell. All rights reserved.</p>
+    </div>
+  </footer>
+</body>
+</html>

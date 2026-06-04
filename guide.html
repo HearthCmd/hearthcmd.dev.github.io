@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Setup Guide - Hearth Cmd</title>
+  <meta name="description" content="Set up Hearth Cmd with your AI coding agent. Approve permission requests from your iPhone with push notifications, smart rules, and risk-annotated commands. Works with Claude Code, Copilot CLI, Cursor CLI, Codex CLI, and Pi.">
+  <meta name="keywords" content="Claude Code, Copilot CLI, Cursor CLI, Codex CLI, Pi, AI agent approval, AI agent permissions, remote approval, Hearth Cmd">
+  <link rel="icon" type="image/svg+xml" href="hearthcmd.svg">
+  <link rel="apple-touch-icon" href="hearthcmd-180.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav>
+    <div class="container">
+      <a href="/" class="brand">
+        <img src="hearthcmd.svg" alt="Hearth Cmd logo">
+        Hearth Cmd
+      </a>
+      <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="support.html">Support</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="docs">
+    <div class="container">
+      <h1>Hearth Cmd Setup Guide</h1>
+
+      <p>Hearth Cmd is mission control for your AI coding agents. You install a small CLI on each machine where you want agents to run, log in once with your email, and start the daemon. From then on, you spawn and manage agents from your phone. The CLI's permission engine intercepts every read, write, network call, and shell command and routes them to the app for approval. Smart rules auto-approve trusted actions so your agents keep working.</p>
+
+      <h2>Supported Agents</h2>
+      <ul>
+        <li><a href="https://docs.anthropic.com/en/docs/claude-code">Claude Code</a></li>
+        <li><a href="https://docs.github.com/en/copilot">GitHub Copilot CLI</a></li>
+        <li><a href="https://www.cursor.com">Cursor CLI</a></li>
+        <li><a href="https://openai.com/index/introducing-codex/">Codex CLI</a></li>
+        <li><a href="https://www.npmjs.com/package/@mariozechner/pi-coding-agent">Pi</a></li>
+      </ul>
+
+      <h2>What You'll Need</h2>
+      <ul>
+        <li>One of the supported agents installed and working</li>
+        <li>An iPhone with the Hearth Cmd app installed (iOS App Store listing coming soon)</li>
+        <li>macOS, Linux, or WSL2</li>
+      </ul>
+
+      <h2>Step 1: Install the CLI</h2>
+      <pre><code>curl -sSL https://hearthcmd.com/install.sh | bash</code></pre>
+      <p>Downloads the latest binary for your system and installs it to <code>/usr/local/bin/hearth</code>.</p>
+
+      <h2>Step 2: Log In</h2>
+      <p>Run <code>hearth login</code> with your email:</p>
+      <pre><code>hearth login you@example.com</code></pre>
+      <p>Hearth Cmd emails you a 6-digit code. Check your inbox, copy the code, and paste it at the prompt:</p>
+      <pre><code>A 6-digit code has been sent to you@example.com.
+Enter the code: 123456</code></pre>
+      <p>If this is your first time logging in, you'll also be asked for a display name and an organization name (press Enter to accept the suggested defaults). Once verified, this machine is enrolled as a host under your account &mdash; you don't need to log in again on this machine unless you sign out.</p>
+
+      <h2>Step 3: Start the Daemon</h2>
+      <pre><code>hearth start</code></pre>
+      <p>The daemon runs in the background and listens for spawn requests from the app. You can check on it any time with:</p>
+      <pre><code>hearth status</code></pre>
+      <p>Stop it with <code>hearth stop</code>. It does not auto-start on boot &mdash; run <code>hearth start</code> after a reboot if you want the host available to your phone.</p>
+
+      <h2>Step 4: Sign In on Your Phone</h2>
+      <p>Open Hearth Cmd on your iPhone, enter the same email address, and enter the 6-digit code that arrives in your inbox. The app picks up the host you just enrolled and shows it in the host list.</p>
+
+      <h2>Step 5: Spawn an Agent from the App</h2>
+      <p>Everything from here happens on your phone. To start a new agent session:</p>
+      <ol>
+        <li>Tap <strong>+ New Agent</strong> on the home screen.</li>
+        <li>Pick the host you want the agent to run on.</li>
+        <li>Pick a working directory (or add a new one and point it at any folder on that host).</li>
+        <li>Pick the agent &mdash; Claude Code, Copilot CLI, Cursor CLI, Codex CLI, or Pi.</li>
+        <li>Tap <strong>Start</strong>.</li>
+      </ol>
+      <p>The agent launches on your laptop in yolo mode &mdash; it never blocks on a terminal prompt. The app shows the live activity stream as the agent works. The first time the agent does anything that needs permission (writing a file, running a command, hitting the network), you'll get a prompt on your phone.</p>
+
+      <h2>Day-to-Day from the App</h2>
+      <ul>
+        <li><strong>Approve or deny requests.</strong> Each request shows the tool, the input, and the risk level. Tap <strong>Allow</strong>, <strong>Always Allow</strong>, <strong>Deny</strong>, or <strong>Deny &amp; Stop</strong>.</li>
+        <li><strong>Watch the activity stream.</strong> Every tool call, file edit, and response streams in real time. Scrub back through anything the agent has done in the session.</li>
+        <li><strong>Talk to your agent.</strong> The Activity tab has an input bar. Anything you type is sent to the agent as if you typed it at the terminal.</li>
+        <li><strong>Run multiple agents at once.</strong> Spawn agents on different working directories, or different hosts, and switch between them in the home screen.</li>
+        <li><strong>Pull the plug.</strong> Tap the stop button on any session to terminate the agent immediately.</li>
+      </ul>
+
+      <h2>CLI Reference</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Command</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>hearth login &lt;email&gt;</code></td>
+            <td>Log in via email OTP and enroll this host. <code>--invite &lt;token&gt;</code> joins an existing org.</td>
+          </tr>
+          <tr>
+            <td><code>hearth start</code></td>
+            <td>Start the daemon on this host.</td>
+          </tr>
+          <tr>
+            <td><code>hearth stop</code></td>
+            <td>Stop the daemon.</td>
+          </tr>
+          <tr>
+            <td><code>hearth status</code></td>
+            <td>Show daemon status.</td>
+          </tr>
+          <tr>
+            <td><code>hearth talk</code></td>
+            <td>Open a TUI to talk to active agent instances from this terminal.</td>
+          </tr>
+          <tr>
+            <td><code>hearth hh</code></td>
+            <td>Manage household, users, hosts, devices, agents, and invites.</td>
+          </tr>
+          <tr>
+            <td><code>hearth wd</code></td>
+            <td>Manage working directories (list, create, update, abandon, delete).</td>
+          </tr>
+          <tr>
+            <td><code>hearth update</code></td>
+            <td>Update <code>hearth</code> to the latest version.</td>
+          </tr>
+          <tr>
+            <td><code>hearth logout</code></td>
+            <td>Sign out on this machine: stops the daemon, revokes credentials, clears config.</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>Run <code>hearth &lt;command&gt; --help</code> for details. Config lives in <code>~/.hearth/config</code>.</p>
+
+      <h2>How the Rules Work</h2>
+      <p>Rules are the core of the system. Tapping "Always Allow" doesn't just approve the request &mdash; it generates a pattern that auto-approves future matching commands without interrupting you.</p>
+
+      <h3>Pattern generation</h3>
+      <p>Patterns are <strong>subcommand-aware</strong>. The system knows that <code>git push</code> and <code>git status</code> are different operations:</p>
+      <ul>
+        <li><code>go build ./cmd/foo</code> &rarr; pattern <code>Bash(go build **)</code> &mdash; matches any <code>go build</code></li>
+        <li><code>git push origin main</code> &rarr; pattern <code>Bash(git push **)</code> &mdash; matches any <code>git push</code>, but not <code>git reset</code></li>
+        <li><code>aws s3 cp file.txt s3://bucket/</code> &rarr; pattern <code>Bash(aws s3 cp **)</code> &mdash; three-word prefix for AWS/GCloud</li>
+      </ul>
+
+      <h3>Destructive command safety</h3>
+      <p>Commands like <code>rm</code>, <code>sudo</code>, <code>kill</code>, and <code>chmod</code> use <strong>exact matching</strong>. Granting <code>rm -rf /tmp/coverage</code> creates a rule that matches only that exact string &mdash; not <code>rm -rf /home</code>, not <code>rm -rf /tmp/coverage /etc</code>.</p>
+
+      <h3>Compound commands</h3>
+      <p>When the agent runs <code>git add . && git commit -m "msg" && git push</code>, the system splits it into three segments and generates a separate pattern for each. All segments must have matching rules for the compound command to auto-approve. If you've granted <code>git add</code> and <code>git commit</code> but not <code>git push</code>, the compound command still comes to your phone.</p>
+      <p>In the app, each segment is color-coded by risk (green/orange/red) and segments already covered by rules show a checkmark overlay &mdash; so you can see at a glance which part of the command is the one that needs your attention.</p>
+
+      <h3>File operations</h3>
+      <p>For <code>Read</code>, <code>Write</code>, and <code>Edit</code> tools, patterns match on the directory. Granting an edit to <code>/home/user/project/src/main.go</code> creates the pattern <code>Edit(/home/user/project/src/**)</code>, which covers future edits in that directory.</p>
+
+      <h2>Talk to Your Agent from Your Phone</h2>
+      <p>The Activity tab in the app shows an input bar at the bottom. Anything you type is sent directly to your agent session as if you typed it at the terminal.</p>
+      <p>Use this to:</p>
+      <ul>
+        <li>Answer prompts when your agent asks a question</li>
+        <li>Provide additional context or instructions mid-session</li>
+        <li>Nudge the agent in a different direction</li>
+        <li>Respond to interactive dialogs</li>
+      </ul>
+      <p>Talk to Your Agent requires Hearth Cmd Pro. Pro also includes push notifications so you never miss a request.</p>
+
+      <h2>Tips</h2>
+      <ul>
+        <li>The first few sessions generate the most requests. Once you've built up rules for your common patterns, interruptions drop off quickly.</li>
+        <li>Check the <strong>Grants</strong> tab to see your rules grouped by project. Swipe left to delete any rule.</li>
+        <li>If you're in a Focus mode on iOS, make sure Time Sensitive notifications are allowed for Hearth Cmd &mdash; permission requests use this priority.</li>
+      </ul>
+
+      <h2>Troubleshooting</h2>
+      <p>See the <a href="support.html#troubleshooting">troubleshooting section</a> of the support page for common issues.</p>
+
+      <h2>Questions?</h2>
+      <p>Email <a href="mailto:support@hearthcmd.com">support@hearthcmd.com</a>.</p>
+    </div>
+  </div>
+
+  <script>
+    document.querySelectorAll('.docs pre').forEach(function(pre) {
+      var btn = document.createElement('button');
+      btn.className = 'copy-btn';
+      btn.textContent = 'Copy';
+      btn.addEventListener('click', function() {
+        var code = pre.querySelector('code');
+        navigator.clipboard.writeText(code ? code.innerText : pre.innerText).then(function() {
+          btn.textContent = 'Copied!';
+          btn.classList.add('copied');
+          setTimeout(function() {
+            btn.textContent = 'Copy';
+            btn.classList.remove('copied');
+          }, 2000);
+        });
+      });
+      pre.appendChild(btn);
+    });
+  </script>
+
+  <footer>
+    <div class="container">
+      <div class="footer-links">
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Service</a>
+        <a href="support.html">Support</a>
+        <a href="mailto:support@hearthcmd.com">Contact</a>
+      </div>
+      <p class="copyright">&copy; 2025-2026 David Farrell. All rights reserved.</p>
+    </div>
+  </footer>
+</body>
+</html>
